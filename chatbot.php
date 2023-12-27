@@ -21,10 +21,15 @@
                
                   <div class='row'>
           <img src="bot.png" alt="bot" id="bot">
-        
+        <div class="botm">
             <?php
-         $tab=array( );
-         $oTab = array_splice($tablica, 0, 5);
+             
+           session_start();
+           $tab = isset($_SESSION['mojaTablica']) ? $_SESSION['mojaTablica'] : array();
+           $n=3;
+           $i=0;  
+          
+
     $baza = mysqli_connect('localhost', 'root', '', 'chatbot');
     mysqli_select_db($baza, 'chatbot');
     
@@ -42,34 +47,60 @@
         while($row = mysqli_fetch_array($zap)){
             if($wiad == "jaka jest dzisiejsza data?"){
                 $dzsiaj = getdate();
-                echo "<p class='abc'>" . $row[1] . $dzsiaj['mday'] . "." . $dzsiaj['mon'] . "." . $dzsiaj['year'] . "</p>";
+                array_unshift($tab,"<p class='a'>" . $row[1] . $dzsiaj['mday'] . "." . $dzsiaj['mon'] . "." . $dzsiaj['year'] . "</p>");
+           
             }  
 
             else  {
-                echo "<p class='abc'>" . $row[1] . "</p>";
+                array_unshift($tab,"<p class='b'>" . $row[1] . "</p>");
             }
             
             
         }
     }
         else{
-            echo "<p>nie wiem</p>";
+            array_unshift($tab,"<p class='c'>nie wiem</p>");
           }
+         
     }
       }
+      if(!empty($tab)){
+          
+        for ($i = min(count($tab) - 1, $n - 1); $i >= 0; $i--) {
+            echo $tab[$i];
+        }
+        }
       
+      else{
+        echo "<p> w czym ci pomóc</p>";
+      }
+      $_SESSION['mojaTablica'] = $tab;
         
-    
+    echo "</div>";  
    echo "</div>";
     mysqli_close($baza);
+ 
 ?>
+  <div class="userm">
        <?php
+        $n=3;
+        $i=0;  
+        $tab2=array();
+            $tab2 = isset($_SESSION['mojaTablica2']) ? $_SESSION['mojaTablica2'] : array();
                     if(isset( $_POST['wiad'])){
                         $wiad=$_POST['wiad'];
                           if(!empty($wiad)&& trim($wiad, " ")){
-                        echo "<p class='user_msg' > $wiad </p>";
+                        array_unshift($tab2,"<p> $wiad </p>");
                           }
                     }
+                    if(!empty($tab2)){
+          
+                        for ($i = min(count($tab2) - 1, $n - 1); $i >= 0; $i--) {
+                            echo $tab2[$i];
+                        };
+                        }
+                        echo "</div>";
+                    $_SESSION['mojaTablica2'] = $tab2;
                 ?>  
  
 </div>

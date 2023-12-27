@@ -28,7 +28,7 @@ html{
     justify-content:end;
     display: flex;
     align-items:left;
-    flex-direction: column;
+    flex-direction: column  ;
     background-color: rgb(255, 255, 255);
     width: 75vw;
     height:65vh;
@@ -42,9 +42,8 @@ html{
     flex-direction: row;
 }
 .msg p{
+    width: fit-content;
     margin: 10px;
-    max-width: auto;
-    height: auto;
     background-color: blue;
     border-radius: 10px;
     border: 5px black solid;
@@ -73,23 +72,26 @@ button img{
 }
 
 #bot{
-   
-    
     width: 5vh;
     height: 5vh;
     border-radius:100%;
     border: 5px solid black;
-
-
- 
-
-}
-.msg .abc {
-   
 }
 .row{
+    align-items: flex-end;
     display: flex;
     flex-direction: row;
 }
+.userm{
+    justify-content:center;
+    display: flex;
+    align-items:start; 
+    flex-direction: column;
 
-
+}
+.userm p{
+    margin-bottom: 100px;
+}
+.botm p{
+    margin-top: 100px;
+}
